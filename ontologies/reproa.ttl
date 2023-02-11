@@ -1,0 +1,188 @@
+@prefix : <https://raw.githubusercontent.com/reprostat/reprovenance/master/ontologies/reproa#> .
+@prefix nfo: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
+@prefix nie: <http://www.semanticdesktop.org/ontologies/2007/01/19/nie#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix provone: <http://purl.org/provone#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <https://raw.githubusercontent.com/reprostat/reprovenance/master/ontologies/reproa#> .
+
+<https://raw.githubusercontent.com/reprostat/reprovenance/master/ontologies/reproa> rdf:type owl:Ontology ;
+
+                                                                                    rdfs:label "reproa Ontology (reproa)"@en ;
+
+                                                                                    rdfs:comment "This document is published by the Reproducibility Statistics lab ."@en ;
+
+                                                                                    owl:versionInfo "0.1.0"@en ;
+
+                                                                                    owl:imports <http://www.w3.org/ns/prov-o-20130430> .
+
+
+
+
+
+#################################################################
+#
+#    Annotation properties
+#
+#################################################################
+
+
+###  https://raw.githubusercontent.com/reprostat/reprovenance/master/ontologies/reproa#version
+
+:version rdf:type owl:AnnotationProperty ;
+
+         rdfs:domain nie:InformationElement .
+
+         prov:definition "A unique version name or numbers generally assigned in increasing order to correspond to the development stages of an Information Element." .
+
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  https://raw.githubusercontent.com/reprostat/reprovenance/master/ontologies/reproa#hasParallelComputing
+
+:hasParallelComputing rdf:type owl:ObjectProperty ;
+
+                      rdfs:label "hasParallelComputing" ;
+
+                      prov:definition "Link the Pipeline with its ParallelComputing resource." ;
+
+                      rdfs:range :ParallelComputingProvider ;
+
+                      rdfs:domain :Pipeline .
+
+
+
+###  https://raw.githubusercontent.com/reprostat/reprovenance/master/ontologies/reproa#hasSoftwareAgent
+
+:hasSoftwareAgent rdf:type owl:ObjectProperty ;
+
+                  rdfs:label "runs" ;
+
+                  prov:definition "Indicates that a Software or a SofwareAgent runs another one" ;
+
+                  rdfs:range nfo:Software ;
+
+                  rdfs:domain nfo:Software ,
+                              prov:SoftwareAgent ;
+
+                  rdfs:range prov:SoftwareAgent .
+
+
+
+###  https://raw.githubusercontent.com/reprostat/reprovenance/master/ontologies/reproa#objectModel
+
+:objectModel rdf:type owl:ObjectProperty ;
+
+             rdfs:range :reproaObjectModel ;
+
+             rdfs:domain prov:Bundle .
+
+
+
+
+
+#################################################################
+#
+#    Data properties
+#
+#################################################################
+
+
+###  https://raw.githubusercontent.com/reprostat/reprovenance/master/ontologies/reproa#isTrackKeeping
+
+:isTrackKeeping rdf:type owl:DatatypeProperty ;
+
+                rdfs:label "isTrackKeeping" ;
+
+                prov:definition "Boolean property to indicate whether a Pipeline keeps track of what needs to be done." ;
+
+                rdfs:domain :Pipeline .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  https://raw.githubusercontent.com/reprostat/reprovenance/master/ontologies/reproa#ParallelComputingProvider
+
+:ParallelComputingProvider rdf:type owl:Class ;
+
+                           rdfs:label "Parallel Computing Provider" ;
+
+                           rdfs:subClassOf nfo:Application ,
+                                           prov:SoftwareAgent ;
+
+                           prov:definition "A parellel computing computer cluster software system" .
+
+
+
+###  https://raw.githubusercontent.com/reprostat/reprovenance/master/ontologies/reproa#Pipeline
+
+:Pipeline rdf:type owl:Class ;
+
+          rdfs:label "Pipeline" ;
+
+          rdfs:subClassOf nfo:Application ,
+                          prov:SoftwareAgent ;
+
+          prov:definition "A software (package) providing way to specify and process workflows." .
+
+
+
+###  https://raw.githubusercontent.com/reprostat/reprovenance/master/ontologies/reproa#reproaObjectModel
+
+:reproaObjectModel rdf:type owl:Class ;
+
+                   rdfs:subClassOf nfo:Document .
+
+
+
+###  https://raw.githubusercontent.com/reprostat/reprovenance/master/ontologies/reproa#reproaWorkflow
+
+:reproaWorkflow rdf:type owl:Class ;
+
+                rdfs:subClassOf :reproaObjectModel .
+
+
+
+###  https://raw.githubusercontent.com/reprostat/reprovenance/master/ontologies/reproa#module
+
+:module rdf:type owl:Class ;
+
+        rdfs:subClassOf provone:ProcessExec ;
+
+        prov:definition "It handles a single task, which may be peformed per study, per subject or per run (see https://bids-specification.readthedocs.io/en/stable/02-common-principles.html)." .
+
+
+
+###  https://raw.githubusercontent.com/reprostat/reprovenance/master/ontologies/reproa#stream
+
+:stream rdf:type owl:Class ;
+
+        rdfs:subClassOf nfo:LocalFileDataObject ,
+                        provone:Data ;
+
+        prov:definition "A description of data (files and MD5 hash) used or generated by a module." .
+
+
+
+
+
+###  Generated by the OWL API (version 3.5.1) http://owlapi.sourceforge.net
+
